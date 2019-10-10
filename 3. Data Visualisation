@@ -190,3 +190,34 @@ ggplot(data=mpg)+
 The facets are empty when there is no data for the according combination 
 e.g. rear wheel drive (r) with 4 or 5 cylinder is not listed. The 7 cylinder factes are missed entirely.
 
+#What plots does the following code make? What does . do?
+ggplot(data = mpg) + 
+ geom_point(mapping = aes(x = displ, y = hwy)) +
+ facet_grid(drv ~ .)
+ #grid along x-axis
+ 
+ ggplot(data = mpg) + 
+ geom_point(mapping = aes(x = displ, y = hwy)) +
+ facet_grid(. ~ cyl)
+ #grid along y-axis
+  
+ With faceting it is easier to examine the indivual classes. 
+ With coloring it is easier to see how the classes are clustered overall. 
+ With larger datasets it’s more likely that you want to see the overall clustering 
+ instead of the individual point clouds
+ 
+ #Read ?facet_wrap. What does nrow do? What does ncol do? 
+ #What other options control the layout of the individual panels? 
+ #Why doesn’t facet_grid() have nrow and ncol arguments?
+ 
+ nrow = determine the number of rows
+ ncol= determine the number of columns
+ facet_grid has a few variables
+ 
+#When using facet_grid() you should usually put the variable with more unique levels in the columns. 
+#Why?
+ ggplot(data = mpg) + 
+ geom_point(mapping = aes(x = displ, y = hwy)) + 
+ facet_grid(class ~ drv)
+ 
+ 
