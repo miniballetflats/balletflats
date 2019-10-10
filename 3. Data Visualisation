@@ -113,3 +113,66 @@ How can you see this information when you run mpg?
 
 # Categorical:model, year, trans, drv, fl,class
 # Continuous:displ, cyl, cty, hwy
+
+#Map a continuous variable to color, size, and shape. 
+#How do these aesthetics behave differently for categorical vs. continuous variables?
+
+COLOR
+ggplot(data=mpg)+
+geom_point(mapping=aes(x=hwy,y=cyl, color=hwy))
+#the legend for this plot is a shade of color
+#for categorical variable, the color is not a range
+
+SIZE
+ggplot(data=mpg)+
+geom_point(mapping=aes(x=hwy,y=cyl, size=hwy))
+#the plot size increased for higher hwy value
+#for categorical variable, Warning message: Using size for a discrete variable is not advised. 
+
+SHAPE
+ggplot(data=mpg)+
+geom_point(mapping=aes(x=hwy,y=cyl, shape=hwy))
+#Error: A continuous variable can not be mapped to shape
+#for categorical variable, The shape palette can deal with a maximum of 6 discrete values because more than 6 becomes
+difficult to discriminate; you have 7
+
+#What happens if you map the same variable to multiple aesthetics?
+ggplot(data=mpg)+
++ geom_point(mapping=aes(x=hwy,y=cyl, color=class, shape=class))
+#mixture of color and shape
+#Warning messages:
+1: The shape palette can deal with a maximum of 6 discrete values because more than 6 becomes
+difficult to discriminate; you have 7. Consider specifying shapes manually if you must have them. 
+2: Removed 62 rows containing missing values (geom_point). 
+
+#What does the stroke aesthetic do? What shapes does it work with? (Hint: use ?geom_point)
+ggplot(data=mpg)+
++ geom_point(mapping=aes(x=displ,y=hwy, stroke=hwy))
+# The stroke aesthetic seems to adjust the plotted object thickness.
+
+What happens if you map an aesthetic to something other than a variable name, like aes(colour = displ < 5)? 
+ggplot(data=mpg)+
+geom_point(mapping=aes(x=displ,y=hwy, colour= displ <5))
+the displ will differentiate before and after 5
+
+3.5 Facets
+
+FACET_WRAP
+ggplot(data=mpg)+
+geom_point(mapping=aes(x=displ,y=hwy))+
+facet_wrap(~class, nrow=2)
+#To facet your plot by a single variable, use facet_wrap(). 
+The first argument of facet_wrap() should be a formula, 
+which you create with ~ followed by a variable name 
+(here “formula” is the name of a data structure in R, not a synonym for “equation”).
+
+FACET_GRID
+ggplot(data=mpg)+
+geom_point(mapping=aes(x=displ,y=hwy))+
+facet_grid(drv~cyl)
+
+ggplot(data=mpg)+
+geom_point(mapping=aes(x=displ,y=hwy))+
+facet_grid(.~cyl)
+
+3.5.1 Exercises
