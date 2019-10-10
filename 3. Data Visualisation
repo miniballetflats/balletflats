@@ -101,3 +101,15 @@ geom_point(mapping=aes(x=displ,y=hwy),shape=5, color="blue")
 ##   ggplot(data = mpg) + 
 ##   geom_point(mapping = aes(x = displ, y = hwy, color = "blue"))
 the default color for all plots are red, labelled as "blue" instead
+
+correction should be ( it should be outside the aes() bracket)
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy), color = "blue")
+ 
+#Which variables in mpg are categorical? 
+Which variables are continuous? 
+(Hint: type ?mpg to read the documentation for the dataset). 
+How can you see this information when you run mpg?
+
+# Categorical:model, year, trans, drv, fl,class
+# Continuous:displ, cyl, cty, hwy
