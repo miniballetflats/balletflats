@@ -1,0 +1,103 @@
+3.2.1 The mpg data frame
+
+install.packages("tidyverse")
+library(tidyverse)
+
+> mpg
+# A tibble: 234 x 11
+   manufacturer model      displ  year   cyl trans      drv     cty   hwy fl    class  
+   <chr>        <chr>      <dbl> <int> <int> <chr>      <chr> <int> <int> <chr> <chr>  
+ 1 audi         a4           1.8  1999     4 auto(l5)   f        18    29 p     compact
+ 2 audi         a4           1.8  1999     4 manual(m5) f        21    29 p     compact
+ 3 audi         a4           2    2008     4 manual(m6) f        20    31 p     compact
+ 4 audi         a4           2    2008     4 auto(av)   f        21    30 p     compact
+ 5 audi         a4           2.8  1999     6 auto(l5)   f        16    26 p     compact
+ 6 audi         a4           2.8  1999     6 manual(m5) f        18    26 p     compact
+ 7 audi         a4           3.1  2008     6 auto(av)   f        18    27 p     compact
+ 8 audi         a4 quattro   1.8  1999     4 manual(m5) 4        18    26 p     compact
+ 9 audi         a4 quattro   1.8  1999     4 auto(l5)   4        16    25 p     compact
+10 audi         a4 quattro   2    2008     4 manual(m6) 4        20    28 p     compact
+# ... with 224 more rows
+
+> ?mpg
+# to learn more about mpg data and its variables
+
+ggplot(data=mpg)+
+geom_point(mapping=aes(x=displ,y=hwy))
+#the plot shows a negative relationship between engine size (displ) and fuel efficiency (hwy). 
+#In other words, cars with big engines use more fuel.
+
+3.2.4 Exercises
+#Run ggplot(data = mpg). What do you see?
+#nothing
+
+#How many rows are in mpg? How many columns?
+#234 rows and 11 columns
+
+#What does the drv variable describe? Read the help for ?mpg to find out
+#drv
+f = front-wheel drive, r = rear wheel drive, 4 = 4wd
+
+#Make a scatterplot of hwy vs cyl.
+ggplot(data=mpg)+
++ geom_point(mapping=aes(x=hwy,y=cyl))
+#hwy= highway miles per gallon and #cyl=number of cylinders
+no real correlation. more miles will use cylinders
+
+#What happens if you make a scatterplot of class vs drv? Why is the plot not useful?
+ggplot(data=mpg)+
+geom_point(mapping=aes(x=class,y=drv))
+#does not show any correlation
+
+3.3 Aesthetic mappings 
+
+COLOR
+ggplot(data=mpg)+
++ geom_point(mapping=aes(x=displ,y=hwy, color=class))
+#different class vehicles are mapped to different colours
+# Scaling: ggplot2 will automatically assign a unique level of the aesthetic (here a unique color) 
+to each unique value of the variable, a process known as scaling.
+
+SIZE
+ggplot(data=mpg)+
+geom_point(mapping=aes(x=displ,y=hwy,size=class))
+#Warning message:
+#Using size for a discrete variable is not advised. 
+#because mapping an unordered variable (class) to an ordered aesthetic (size) is not a good idea.
+
+TRANSPARENCY / ALPHA
+ggplot(data=mpg)+
++ geom_point(mapping=aes(x=displ,y=hwy,alpha=class))
+#Using size for a discrete variable is not advised
+#there are 4 class of vehicles, hard to differentiate
+
+SHAPE
+ggplot(data=mpg)+
++ geom_point(mapping=aes(x=displ,y=hwy,shape=class))
+#Warning messages:
+1: The shape palette can deal with a maximum of 6 discrete values because more than 6
+becomes difficult to discriminate; you have
+7. Consider specifying shapes manually ifyou must have them. 
+2: Removed 62 rows containing missing values (geom_point). 
+
+CHANGE COLOR of ENTIRE PLOT
+#To set an aesthetic manually, set the aesthetic by name as an argument of your geom function; i.e. it goes outside of aes()
+
+#change all plots to blue
+ggplot(data=mpg)+
+geom_point(mapping=aes(x=displ,y=hwy),color="BLUE")
+
+#change all plots to shape no .5
+ggplot(data=mpg)+
+geom_point(mapping=aes(x=displ,y=hwy),shape=5)
+
+#change all plots to shape no .5 and color blue
+ggplot(data=mpg)+
+geom_point(mapping=aes(x=displ,y=hwy),shape=5, color="blue")
+
+3.3.1 Exercises
+
+#What’s gone wrong with this code? Why are the points not blue?
+##   ggplot(data = mpg) + 
+##   geom_point(mapping = aes(x = displ, y = hwy, color = "blue"))
+the default color for all plots are red, labelled as "blue" instead
