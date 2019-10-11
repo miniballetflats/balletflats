@@ -367,3 +367,62 @@ print(.) %>%
 ggplot(aes(Group.1, x)) +
 geom_col()
 
+
+
+
+
+
+
+OVERPLOTTING
+#values are rounded so the points appear on a grid and many points overlap each other.
+#data points spread equally throughout the graph, hard to see where the mass of the data is
+#this gridding by setting the position adjustment to “jitter”. 
+#position = "jitter" adds a small amount of random noise to each point. 
+
+ggplot(data=mpg)+
+  geom_point(mapping=aes(x=displ,y=hwy), position= "jitter")
+
+3.8.1 Exercises
+
+#What is the problem with this plot? How could you improve it?
+#data points spread equally throughout the graph, hard to see where the mass of the data is
+#correction add "jitter"
+ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) + 
+geom_point(position= "jitter")
+
+ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) + 
+geom_point()+
+geom_jitter()
+
+#What parameters to geom_jitter() control the amount of jittering?
+check in ?geom_jitter for information
+`width` and `height`
+
+#Compare and contrast geom_jitter() with geom_count()
+
+ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) + 
+  geom_point()+
+  geom_jitter()
+
+ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) + 
+  geom_point()+
+  geom_count()
+
+?geom_count 
+counts the number of observations at each location, then maps the count to point area. 
+It useful when you have discrete data and overplotting.
+
+?geom_jitter
+itter geom is a convenient shortcut for geom_point(position = "jitter"). 
+It adds a small amount of random variation to the location of each point, 
+and is a useful way of handling overplotting caused by discreteness in smaller datasets.
+
+What’s the default position adjustment for geom_boxplot()? 
+Create a visualisation of the mpg dataset that demonstrates it.
+?geom_boxplot
+
+ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) + 
+  geom_boxplot(mapping=aes(group=drv))
+
+ggplot(data = mpg, mapping = aes(x = class, y = displ)) + 
+  geom_boxplot(aes(colour = drv))
