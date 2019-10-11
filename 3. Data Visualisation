@@ -426,3 +426,27 @@ ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
 
 ggplot(data = mpg, mapping = aes(x = class, y = displ)) + 
   geom_boxplot(aes(colour = drv))
+
+3.9 Coordinate systems
+#FLIP X and Y axis use coord_flip()
+
+#normal
+ggplot(data=mpg, mapping=aes(x=class,y=hwy))+
+  geom_boxplot()
+
+#flip the axis now
+ggplot(data=mpg, mapping=aes(x=class,y=hwy))+
+  geom_boxplot(mapping=aes(color=class))+
+  coord_flip()
+
+#FOR MAPS use coord_quickmap()
+
+I HAVE NOT INSTALLED MAPS INSIDE YET!
+nz <- map_data("nz")
+
+ggplot(nz,aes(long,lat,group=group))+
+  geom_polygon(fill="white",color="black")
+
+ggplot(nz,es(long,lat,group=group))+
+  geom_ploygon(fill="white",color="black")+
+  coord_quickmap()
