@@ -450,3 +450,55 @@ ggplot(nz,aes(long,lat,group=group))+
 ggplot(nz,es(long,lat,group=group))+
   geom_ploygon(fill="white",color="black")+
   coord_quickmap()
+#USE coord_polar
+
+bar <-ggplot(data=diamonds)+
+  geom_bar(
+    mapping=aes(x=cut,fill=cut),
+    show.legend=FALSE,
+    width=1) +
+  theme(aspect.ratio=1)+
+  labs(x=NULL,y=NULL)
+
+bar
+
+bar +coord_flip()
+bar +coord_polar()
+
+3.9.1 Exercises
+Turn a stacked bar chart into a pie chart using coord_polar().
+
+What does labs() do? Read the documentation.
+?labs()
+Use the plot title and subtitle to explain the main findings. 
+It's common to use the caption to provide information about the data source. 
+tag can be used for adding identification tags to differentiate between multiple plots.
+
+#What’s the difference between coord_quickmap() and coord_map()?
+
+?coord_map()
+projects a portion of the earth, which is approximately spherical, 
+onto a flat 2D plane using any projection defined by the mapproj package
+
+?coord_quickmap()
+coord_quickmap()` is very similar to `coord_map()` but 
+`coord_quickmap()` preserves straight lines in what should be a spherical plane. 
+So, basically, the earth is shperical and `coord_map()` preserves that 
+without plotting any straight lines. 
+`coord_quickmap()` adds those lines adjusting to the spherical surface.
+
+What does the plot below tell you about the relationship 
+between city and highway mpg? 
+Why is coord_fixed() important? What does geom_abline() do?
+
+ggplot(data=mpg, mapping=aes(x=cty,y=hwy))+
+geom_point()+
+geom_abline()+
+coord_fixed()
+
+There is a positive correlation between the two. 
+`coord_fixed()` makes sure there is no visual discrepancies and 
+ensures that the ranges of axes are equal to the specified ratio by adjusting the plot aspect ratio - Documentation of `coord_fixed()`.
+
+geom_abline()` plots the estimated slope between the two variables.
+
